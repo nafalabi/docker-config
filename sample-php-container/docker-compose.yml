@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www
+    ports:
+      - "9002:9002"
+    volumes:
+      - ./workdir:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - shared-net
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8002:80"
+    volumes:
+      - ./workdir/:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - shared-net
+networks:
+  shared-net:
+    external: true
+
