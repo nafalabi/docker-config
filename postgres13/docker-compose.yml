@@ -13,6 +13,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./pgdata:/var/lib/postgresql/data/pgdata
+      - ./scripts:/scripts
     networks:
       - shared-net
 
