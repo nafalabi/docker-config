@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.19.3-alpine
+    restart: always
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+    command: "--admin-password $BCRYPT_ADMIN_PASSWORD"
+    networks:
+      - local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+
+networks:
+  local:
+    driver: bridge
+
+volumes:
+  portainer-data:
